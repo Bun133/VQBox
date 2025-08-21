@@ -1,6 +1,9 @@
 import { Provider } from '@/components/ui/provider';
+import { Container, Theme } from '@chakra-ui/react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import Footer from './_components/Footer';
+import Header from './_components/Header';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -18,12 +21,11 @@ export default function RootLayout({
     <html lang="ja" suppressHydrationWarning>
       <body className={inter.className}>
 				<Provider>
-        <header className=''>
-        </header>
-        {/* このmainタグが各ページで内容がレンダリングされる */}
-        <main>{children}</main>
-        <footer className=''>
-        </footer>
+          <Theme appearance='light'>
+            <Header />
+            <Container>{children}</Container>
+            <Footer />
+          </Theme>
 				</Provider>
       </body>
     </html>
