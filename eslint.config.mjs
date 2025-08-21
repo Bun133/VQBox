@@ -19,7 +19,6 @@ const eslintConfig = [
       "build/**",
       "next-env.d.ts",
     ],
-    indent: ["error", 2]
   },
 ];
 

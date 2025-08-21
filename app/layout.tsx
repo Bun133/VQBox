@@ -1,3 +1,4 @@
+import { Provider } from '@/components/ui/provider';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
@@ -14,14 +15,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
+    <html lang="ja" suppressHydrationWarning>
       <body className={inter.className}>
+				<Provider>
         <header className=''>
         </header>
         {/* このmainタグが各ページで内容がレンダリングされる */}
         <main>{children}</main>
         <footer className=''>
         </footer>
+				</Provider>
       </body>
     </html>
   );
