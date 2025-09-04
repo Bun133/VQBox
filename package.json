@@ -11,7 +11,9 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@auth/core": "^0.40.0",
     "@chakra-ui/react": "^3.25.0",
+    "@convex-dev/auth": "^0.0.88",
     "@emotion/react": "^11.14.0",
     "convex": "^1.25.4",
     "convex-helpers": "^0.1.104",
