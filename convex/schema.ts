@@ -8,18 +8,15 @@ export default defineSchema({
   question: defineTable({
     text: v.string(),
     sendInfo: v.object({
-      to: v.id('user'),
+      to: v.id('users'),
     }),
     isReadByRecipient: v.boolean(),
   })
     .index('bySendTo', ['sendInfo.to'])
     .index('unreadByRecipient', ['sendInfo.to', 'isReadByRecipient']),
 
-  user: defineTable({
+  userInfo: defineTable({
+    userId: v.id('users'),
     displayName: v.string(),
-    authInfo: v.object({
-      provider: v.string(),
-      id: v.string(),
-    }),
-  }).index('byProviderAndId', ['authInfo.provider', 'authInfo.id']),
+  }).index('byUserId', ['userId']),
 });
