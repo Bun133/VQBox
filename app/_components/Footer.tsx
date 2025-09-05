@@ -1,10 +1,5 @@
-import { VStack } from "@chakra-ui/react";
+import { VStack } from '@chakra-ui/react';
 
-export default function Footer({}){
-  return (
-    <VStack w="full">
-      - aaaa
-      - aaaa
-    </VStack>
-  )
+export default function Footer({}) {
+  return <VStack w="full">Footer Here</VStack>;
 }

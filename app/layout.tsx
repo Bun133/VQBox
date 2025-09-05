@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/toaster';
 import { Container } from '@chakra-ui/react';
 import { ConvexAuthNextjsServerProvider } from '@convex-dev/auth/nextjs/server';
 import type { Metadata } from 'next';
@@ -5,7 +6,6 @@ import { Inter } from 'next/font/google';
 import Footer from './_components/Footer';
 import Header from './_components/Header';
 import { Providers } from './_components/Providers';
-import { Toaster } from '@/components/ui/toaster';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -25,7 +25,7 @@ export default function RootLayout({
         <body className={inter.className}>
           <Providers>
             <Header />
-            <Container>{children}</Container>
+            <Container justifyItems="center">{children}</Container>
             <Footer />
             <Toaster />
           </Providers>

@@ -32,3 +32,33 @@ export const listMyQuestion = query({
     };
   },
 });
+
+export const getQuestionById = query({
+  args: {
+    id: v.id('question'),
+  },
+  returns: v.union(
+    v.object({
+      status: v.literal('NotFound'),
+    }),
+    v.object({
+      status: v.literal('Ok'),
+      question: v.object({
+        _id: v.id('question'),
+        text: v.string(),
+      }),
+    }),
+  ),
+  handler: async (ctx, { id }) => {
+    const question = await ctx.db.get(id);
+    if (!question) {
+      return {
+        status: 'NotFound' as const,
+      };
+    }
+    return {
+      status: 'Ok' as const,
+      question: { _id: question._id, text: question.text },
+    };
+  },
+});
