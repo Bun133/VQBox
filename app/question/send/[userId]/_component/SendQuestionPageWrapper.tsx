@@ -3,7 +3,7 @@
 import { toaster } from '@/components/ui/toaster';
 import { api } from '@/convex/_generated/api';
 import { Id } from '@/convex/_generated/dataModel';
-import { Button, Field, Input, VStack } from '@chakra-ui/react';
+import { Button, Field, Textarea, VStack } from '@chakra-ui/react';
 import { useMutation } from 'convex/react';
 import { useState } from 'react';
 
@@ -15,7 +15,7 @@ export const SendQuestionPageWrapper = ({ userId }: { userId: string }) => {
     <VStack>
       <Field.Root>
         <Field.Label>質問内容</Field.Label>
-        <Input value={text} onChange={(e) => setText(e.target.value)} />
+        <Textarea value={text} onChange={(e) => setText(e.target.value)} />
       </Field.Root>
 
       <Button

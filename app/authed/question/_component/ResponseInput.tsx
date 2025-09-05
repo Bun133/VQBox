@@ -3,7 +3,7 @@
 import { toaster } from '@/components/ui/toaster';
 import { api } from '@/convex/_generated/api';
 import { Id } from '@/convex/_generated/dataModel';
-import { Button, Field, Input, VStack } from '@chakra-ui/react';
+import { Button, Field, Textarea, VStack } from '@chakra-ui/react';
 import { useMutation } from 'convex/react';
 import { useState } from 'react';
 
@@ -19,7 +19,7 @@ export const ResponseInput = ({
     <VStack w="full" gap={4}>
       <Field.Root>
         <Field.Label>回答入力</Field.Label>
-        <Input
+        <Textarea
           value={text}
           onChange={(e) => {
             setText(e.target.value);

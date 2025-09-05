@@ -1,6 +1,6 @@
 import { getAuthUserId } from '@convex-dev/auth/server';
 import { v } from 'convex/values';
-import { query } from './_generated/server';
+import { mutation, query } from './_generated/server';
 
 export const getMyUserInfo = query({
   args: {},
@@ -93,6 +93,44 @@ export const listRandomUsers = query({
         userId: user.userId,
         displayName: user.displayName,
       })),
+    };
+  },
+});
+
+export const saveUserInfo = mutation({
+  args: {
+    displayName: v.string(),
+  },
+  returns: v.union(
+    v.object({
+      status: v.literal('Unauthenticated'),
+    }),
+    v.object({
+      status: v.literal('Ok'),
+    }),
+  ),
+  handler: async (ctx, { displayName }) => {
+    const userId = await getAuthUserId(ctx);
+    if (!userId) {
+      return {
+        status: 'Unauthenticated' as const,
+      };
+    }
+
+    // check if userInfo already exists
+    const existing = await ctx.db
+      .query('userInfo')
+      .withIndex('byUserId', (q) => q.eq('userId', userId))
+      .first();
+
+    if (existing) {
+      await ctx.db.patch(existing._id, { displayName });
+    } else {
+      await ctx.db.insert('userInfo', { userId, displayName });
+    }
+
+    return {
+      status: 'Ok' as const,
     };
   },
 });
