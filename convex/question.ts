@@ -1,6 +1,6 @@
 import { getAuthUserId } from '@convex-dev/auth/server';
 import { v } from 'convex/values';
-import { query } from './_generated/server';
+import { mutation, query } from './_generated/server';
 
 export const listMyQuestion = query({
   args: {},
@@ -59,6 +59,40 @@ export const getQuestionById = query({
     return {
       status: 'Ok' as const,
       question: { _id: question._id, text: question.text },
+    };
+  },
+});
+
+export const createQuestion = mutation({
+  args: {
+    sendTo: v.id('users'),
+    text: v.string(),
+  },
+  returns: v.union(
+    v.object({ status: v.literal('RecipientNotFound') }),
+    v.object({
+      status: v.literal('Ok'),
+      questionId: v.id('question'),
+    }),
+  ),
+  handler: async (ctx, { sendTo, text }) => {
+    // Check if the recipient exists
+    const questionRecipient = await ctx.db.get(sendTo);
+    if (!questionRecipient) {
+      return {
+        status: 'RecipientNotFound' as const,
+      };
+    }
+
+    const questionId = await ctx.db.insert('question', {
+      text,
+      sendInfo: { to: sendTo },
+      isReadByRecipient: false,
+    });
+
+    return {
+      status: 'Ok' as const,
+      questionId,
     };
   },
 });

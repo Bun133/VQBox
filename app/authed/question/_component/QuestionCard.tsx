@@ -1,18 +1,34 @@
 import { Box, Button, Card, HStack, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
 
-export const QuestionCard = ({ text, _id }: { text: string; _id: string }) => {
+export const QuestionCard = ({
+  text,
+  _id,
+  displayActions = true,
+  wFill = false,
+}: {
+  text: string;
+  _id: string;
+  displayActions?: boolean;
+  wFill?: boolean;
+}) => {
   return (
-    <Card.Root key={_id} xl={{ w: '50rem' }} w="min(90vw, 40rem)">
+    <Card.Root
+      key={_id}
+      xl={{ w: wFill ? 'full' : '50rem' }}
+      w={wFill ? 'full' : 'min(90vw, 40rem)'}
+    >
       <Card.Body>
         <QuestionText text={text} />
       </Card.Body>
       <Card.Footer>
-        <HStack w="full" justify="flex-end">
-          <Link href={`/authed/question/${_id}`}>
-            <Button>返信</Button>
-          </Link>
-        </HStack>
+        {displayActions && (
+          <HStack w="full" justify="flex-end">
+            <Link href={`/authed/question/${_id}`}>
+              <Button>返信</Button>
+            </Link>
+          </HStack>
+        )}
       </Card.Footer>
     </Card.Root>
   );

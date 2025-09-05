@@ -15,6 +15,12 @@ export default defineSchema({
     .index('bySendTo', ['sendInfo.to'])
     .index('unreadByRecipient', ['sendInfo.to', 'isReadByRecipient']),
 
+  response: defineTable({
+    questionId: v.id('question'),
+    text: v.string(),
+    responder: v.id('users'),
+  }).index('byQuestion', ['questionId']),
+
   userInfo: defineTable({
     userId: v.id('users'),
     displayName: v.string(),
